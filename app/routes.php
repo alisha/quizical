@@ -15,3 +15,11 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::controller('school', 'SchoolController');
+
+Route::controller('user', 'UserController');
+
+/*Route::controller('course', 'CourseController');
+
+Route::controller('assessment', 'AssessmentController');*/

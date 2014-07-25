@@ -15,6 +15,9 @@ class CreateSchoolsTable extends Migration {
 		Schema::create('schools', function($table) {
 			$table->increments('id');
 			$table->string('name');
+			$table->string('city');
+			$table->string('state', 2);
+			$table->string('country');
 			$table->string('passcode');
 			$table->timestamps();
 		});
