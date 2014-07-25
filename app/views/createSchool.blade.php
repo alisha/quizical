@@ -3,7 +3,7 @@
 @section('content')
 
 	<h1>School Sign Up</h1>
-	<p>This should be completed by the school\'s principal only. If you\'re a teacher and your school has already signed up, please go <a href="/">here</a>.</p>
+	<p>This should be completed by the school's principal only. If you're a teacher and your school has already signed up, please go <a href="{{ URL::to('user/new') }}">here</a>.</p>
 
 	{{ Form::open(array('action' => 'SchoolController@postNew')) }}
 
