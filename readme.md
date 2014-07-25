@@ -11,3 +11,4 @@ Thanks to [Ben Zweig](tfzweig.com) for the name.
 ### Code
 
 * [Laravel](laravel.com)
+* [Password generator](https://packagist.org/packages/hackzilla/password-generator) by hackzilla
