@@ -56,7 +56,7 @@ return array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'port'		=> '8889',
-			'database'  => 'root',
+			'database'  => 'quizical',
 			'username'  => 'root',
 			'password'  => 'root',
 			'charset'   => 'utf8',
