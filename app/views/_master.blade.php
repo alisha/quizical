@@ -12,7 +12,15 @@
 
 	<body>
 		<div class="header">
-			<a href="/">Quizical</a>
+			<p><a href="/">Quizical</a>
+			@if (Auth::check())
+				 | <a href="/courses">All Courses</a>
+				 | <a href="logout">Logout</a></p>
+			@else
+				 | <a href="/school/new">School Signup</a>
+				 | <a href="/user/new">Teacher Signup</a>
+				 | <a href="/login">Login</a></p>
+			@endif
 		</div>
 
 		@if(Session::get('flash_message'))

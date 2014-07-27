@@ -43,10 +43,15 @@ Route::post('/login',
 	)
 );
 
+Route::get('/logout', function() {
+	Auth::logout();
+	return Redirect::to('/')->with('flash_message', 'You\'ve been logged out.');
+});
+
 Route::controller('school', 'SchoolController');
 
 Route::controller('user', 'UserController');
 
-/*Route::controller('course', 'CourseController');
+Route::resource('courses', 'CourseController');
 
-Route::controller('assessment', 'AssessmentController');*/
+Route::resource('assessments', 'AssessmentController');
