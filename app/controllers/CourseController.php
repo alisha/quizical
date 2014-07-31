@@ -1,6 +1,19 @@
 <?php
 
 class CourseController extends BaseController {
+	
+	//Validation rules
+	public static $rules = array(
+		'name' => 'required',
+		'block' => 'required',
+		'start_year' => 'required',
+		'number_of_freshmen' => 'required|integer',
+		'number_of_sophomores' => 'required|integer',
+		'number_of_juniors' => 'required|integer',
+		'number_of_seniors' => 'required|integer',
+		'department' => 'required',
+		'level' => 'required'
+	);
 
 	/* Non-CRUD Methods */
 
@@ -28,7 +41,7 @@ class CourseController extends BaseController {
 	 * @return Response
 	 */
 	public function index() {
-		$courses = Course::where('user_id', '=', Auth::user()->id)->get();
+		$courses = Course::where('user_id', '=', Auth::user()->id)->get()->sortBy('block');
 		return View::make('readCourses')->with('courses', $courses);
 	}
 
@@ -50,8 +63,21 @@ class CourseController extends BaseController {
 	 */
 	public function store() {
 		$course = new Course;
+
+		//Validation
+		$validator = Validator::make(Input::all(), 
+			self::$rules);
+
+		if ($validator->fails()) {
+			return Redirect::to('/courses/create')
+				->withInput()
+				->withErrors($validator);
+		}
+
+		//If the input is valid, create the course
 		App::make('CourseController')->saveInput($course);
-		return Redirect::to('/courses')->with('flash_message', 'Your course has been successfully created.');
+
+		return Redirect::to('/courses')->with('flash_message', 'Your course has been successfully created.')->with('alert_class', 'alert-success');
 	}
 
 
@@ -65,12 +91,17 @@ class CourseController extends BaseController {
 		$course = Course::where('id', '=', $id)->first();
 		
 		if (!is_object($course)) {
-			return Redirect::to('/courses')->with('flash_message', 'Sorry, that course doesn\'t exist');
-		} else if ($course->user_id != Auth::user()->id) {
-			return Redirect::to('/courses')->with('flash_message', 'You do not have permission to view this course.');
-		} else {
-			return View::make('readOneCourse')->with('course', $course);
+			return Redirect::to('/courses')->with('flash_message', 'Sorry, that course doesn\'t exist')->with('alert_class', 'alert-danger');
 		}
+
+		$teacher = User::where('id', '=', $course->user_id)->firstOrFail();
+		$school = School::where('id', '=', $teacher->school_id)->firstOrFail();
+
+		if ($school->id != Auth::user()->school_id) {
+			return Redirect::to('/courses')->with('flash_message', 'Sorry, you don\'t have permission to view that course')->with('alert_class', 'alert-danger');
+		}
+		
+		return View::make('readOneCourse')->with('course', $course);
 	}
 
 
@@ -85,11 +116,11 @@ class CourseController extends BaseController {
 
 		//Make sure the specified course exists
 		if (!isset($course)) {
-			return Redirect::to('/')->with('flash_message', 'Sorry, that course doesn\'t exist');
+			return Redirect::to('/')->with('flash_message', 'Sorry, that course doesn\'t exist')->with('alert_class', 'alert-danger');
 		}
 		//Make sure the course belongs to the teacher
 		else if ($course->user_id != Auth::user()->id) {
-			return Redirect::to('/')->with('flash_message', 'You do not have permission to edit this course.');
+			return Redirect::to('/')->with('flash_message', 'You do not have permission to edit this course.')->with('alert_class', 'alert-danger');
 		} else {
 			return View::make('updateCourse')->with('course', $course);
 		}
@@ -104,9 +135,20 @@ class CourseController extends BaseController {
 	 */
 	public function update($id) {
 		$course = Course::findOrFail(Input::get('id'));
+
+		//Validation
+		$validator = Validator::make(Input::all(), self::$rules);
+
+		if ($validator->fails()) {
+			return Redirect::to('/courses/create')
+				->withInput()
+				->withErrors($validator);
+		}
+
+		//If the input is valid, update the course
 		App::make('CourseController')->saveInput($course);
 		$path = '/courses/'.$course->id;
-		return Redirect::to($path)->with('flash_message', 'Your course has been successfully updated.');
+		return Redirect::to($path)->with('flash_message', 'Your course has been successfully updated.')->with('alert_class', 'alert-success');
 	}
 
 

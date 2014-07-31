@@ -34,11 +34,8 @@ Route::post('/login',
 			if (Auth::attempt($credentials, $remember)) {
 				return Redirect::intended('/')->with('flash_message', 'Welcome back!');
 			} else {
-				return Redirect::to('/login')->with('flash_message', 'That didn\'t seem to work - try again?');
+				return Redirect::to('/login')->with('flash_message', 'That didn\'t seem to work - try again?')->with('alert_class', 'alert-danger');
 			}
-
-			return Redirect::to('login');
-
 		}
 	)
 );
@@ -48,10 +45,12 @@ Route::get('/logout', function() {
 	return Redirect::to('/')->with('flash_message', 'You\'ve been logged out.');
 });
 
-Route::controller('school', 'SchoolController');
+Route::controller('schools', 'SchoolController');
 
-Route::controller('user', 'UserController');
+Route::controller('users', 'UserController');
 
-Route::resource('courses', 'CourseController');
+Route::group(array('before' => 'auth'), function() {
+	Route::resource('courses', 'CourseController');
 
-Route::resource('assessments', 'AssessmentController');
+	Route::resource('assessments', 'AssessmentController');
+});

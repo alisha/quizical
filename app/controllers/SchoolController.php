@@ -8,11 +8,11 @@ class SchoolController extends BaseController {
 		return Redirect::to('/');
 	}
 
-	public function getNew() {
+	public function getCreate() {
 		return View::make('createSchool');
 	}
 
-	public function postNew() {
+	public function postCreate() {
 		//Get basic information from form
 		$school = new School;
 		$school->name = Input::get('name');
@@ -29,7 +29,7 @@ class SchoolController extends BaseController {
 		//Add the school to the database
 		$school->save();
 
-		$message = 'Your school has been successfully created. Please write down this passcode and give it to your teachers: '.$school->passcode;
+		$message = 'Your school has been successfully created. Please write down the ID and passcode to give to your teachers. <br>ID: '.$school->id.'<br>Passcode: '.$school->passcode;
 		return Redirect::to('/')->with('flash_message', $message);
 	}
 

@@ -2,6 +2,14 @@
 
 class AssessmentController extends BaseController {
 
+	//Validation rules
+	public static $rules = array(
+		'name' => 'required',
+		'date' => 'required',
+		'type' => 'required',
+		'course_id' => 'required'
+	);
+
 	/* Non-CRUD Methods */
 
 	//Save input for an assessment, given the assessment object and form data
@@ -26,10 +34,16 @@ class AssessmentController extends BaseController {
 
 	/**
 	 * Show the form for creating a new resource.
+	 * Only let the user create an assessment if they have at least one course
 	 *
 	 * @return Response
 	 */
 	public function create() {
+		$hasCourses = (count(Course::where('user_id', '=', Auth::user()->id)->get()) != 0) ? true : false;
+		if (!$hasCourses) {
+			return Redirect::to('/courses/create')->with('flash_message', 'You have to create a course before you can create an assessment!')->with('alert_class', 'alert-danger');
+		}
+
 		return View::make('createAssessment');
 	}
 
@@ -39,9 +53,26 @@ class AssessmentController extends BaseController {
 	 * @return Response
 	 */
 	public function store() {
+		//Validation
+		$validator = Validator::make(Input::all(), 
+			self::$rules);
+
+		if ($validator->fails()) {
+			return Redirect::to('/assessments/create')
+				->with('alert_class', 'alert-danger')
+				->withInput()
+				->withErrors($validator);
+		}
+
 		$assessment = new Assessment;
+		$course = Course::where('id', '=', Input::get('course_id'))->firstOrFail();
+
+		if ($course->user_id != Auth::user()->id) {
+			return Redirect::to('/assessments/new')->with('flash_message', 'You can\'t create an assessment for a course you don\'t own!')->with('alert_class', 'alert-danger');
+		}
+
 		App::make('AssessmentController')->saveInput($assessment);
-		return Redirect::to('/assessments'.$assessment->id)->with('flash_message', 'Your assessment has been successfully created.');
+		return Redirect::to('/assessments/'.$assessment->id)->with('flash_message', 'Your assessment has been successfully created.')->with('alert_class', 'alert-success');
 	}
 
 	/**
@@ -57,7 +88,7 @@ class AssessmentController extends BaseController {
 		if ($user->school_id == Auth::user()->school_id) {
 			return View::make('readOneAssessment')->with('assessment', $assessment);
 		} else {
-			return Redirect::to('/')->with('flash_message', 'Sorry, you don\'t have permission to view this assessment.');
+			return Redirect::to('/')->with('flash_message', 'Sorry, you don\'t have permission to view this assessment.')->with('alert_class', 'alert-danger');
 		}
 	}
 
@@ -72,15 +103,15 @@ class AssessmentController extends BaseController {
 
 		//Make sure the specified course exists
 		if (!isset($assessment)) {
-			Redirect::to('/')->with('flash_message', 'Sorry, that assessment doesn\'t exist');
+			Redirect::to('/')->with('flash_message', 'Sorry, that assessment doesn\'t exist')->with('alert_class', 'alert-danger');
 		} else {
 			$course = Course::where('id', '=', $assessment->course_id)->first();
 			if (!isset($course)) {
-				Redirect::to('/')->with('flash_message', 'Sorry, that course doesn\'t exist');
+				Redirect::to('/')->with('flash_message', 'Sorry, the course for that assessment doesn\'t exist')->with('alert_class', 'alert-danger');
 			} else {
 				//Make sure the assessment belongs to the teacher
 				if ($course->user_id != Auth::user()->id) {
-					Redirect::to('/')->with('flash_message', 'You do not have permission to edit this assessment.');
+					Redirect::to('/')->with('flash_message', 'You do not have permission to edit this assessment.')->with('alert_class', 'alert-danger');
 				} else {
 					return View::make('updateAssessment')->with('assessment', $assessment);
 				}
@@ -96,9 +127,9 @@ class AssessmentController extends BaseController {
 	 */
 	public function update($id) {
 		$assessment = Assessment::findOrFail(Input::get('id'));
-		App::make('AssessmentController')->saveInput($assessment, $data);
+		App::make('AssessmentController')->saveInput($assessment);
 		$path = '/courses/'.$assessment->course_id;
-		return Redirect::to($path)->with('flash_message', 'Your assessment has been successfully updated.');
+		return Redirect::to($path)->with('alert_class', 'alert-success')->with('flash_message', 'Your assessment has been successfully updated.');
 	}
 
 	/**
