@@ -10,8 +10,7 @@ class CreateCoursesTable extends Migration {
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
+	public function up() {
 		Schema::create('courses', function($table) {
 			$table->increments('id');
 			$table->string('name');
@@ -34,8 +33,8 @@ class CreateCoursesTable extends Migration {
 	 *
 	 * @return void
 	 */
-	public function down()
-	{
+	public function down() {
+		DB::statement('SET FOREIGN_KEY_CHECKS=0');
 		Schema::drop('courses');
 	}
 

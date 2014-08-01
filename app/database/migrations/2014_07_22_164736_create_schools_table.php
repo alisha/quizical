@@ -18,7 +18,8 @@ class CreateSchoolsTable extends Migration {
 			$table->string('city');
 			$table->string('state', 2);
 			$table->string('country');
-			$table->string('passcode');
+			$table->string('email');
+			$table->string('password', 60);
 			$table->timestamps();
 		});
 	}
@@ -30,6 +31,7 @@ class CreateSchoolsTable extends Migration {
 	 */
 	public function down()
 	{
+		DB::statement('SET FOREIGN_KEY_CHECKS=0');
 		Schema::drop('schools');
 	}
 

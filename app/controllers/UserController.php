@@ -18,15 +18,18 @@ class UserController extends BaseController {
 
 	public function postCreate() {
 		//Validation
-		$school = School::where('passcode', '=', Input::get('passcode'))->where('id', '=', Input::get('schoolID'))->first();
-		$validator = Validator::make(Input::all(), self::$rules);
+		$school = School::where('id', '=', Input::get('schoolID'))->first();
 
-		if (!isset($school)) {
+		if (!(Hash::check(Input::get('passcode'), $school->password) || isset($school))) {
 			return Redirect::to('/users/create')
 				->with('flash_message', 'We couldn\'t find your school. Try again?')
 				->with('alert_class', 'alert-danger')
 				->withInput();
-		} else if ($validator->fails()) {
+		}
+
+		$validator = Validator::make(Input::all(), self::$rules);
+
+		if ($validator->fails()) {
 			return Redirect::to('/users/create')
 				->withInput()
 				->withErrors($validator);

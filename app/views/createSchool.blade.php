@@ -5,8 +5,7 @@
 	<h1>School Sign Up</h1>
 
 	<p>If you're a teacher and your school has already signed up, please go <a href="{{ URL::to('users/create') }}">here</a>.</p>
-	<p>When you submit, you'll be given a school ID and passcode that will allow teachers to join your school's Quizical community. Please save these and give them to your teachers!</p>
-	<p>All fields are required.</p>
+	<p>When you submit, you'll be given a school ID. Please save this and give it, along with your school password, to your teachers!</p>
 
 	<br>
 
@@ -14,41 +13,67 @@
 
 		<div class="form-group">
 			<div class="col-sm-2">
-				{{ Form::label('name', 'School name:') }}
+				{{ Form::label('name', 'School name:') }} <br>
+				<span class="help-block">Required</span>
 			</div>
 				
 			<div class="col-sm-10">
-				{{ Form::text('name', '', array('required' => 'required', 'class' => 'form-control inputField')) }}
+				{{ Form::text('name', '', array('class' => 'form-control')) }}
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-2">
-				{{ Form::label('city', 'City:') }}
+				{{ Form::label('city', 'City:') }} <br>
+				<span class="help-block">Required</span>
 			</div>
 
 			<div class="col-sm-10">
-				{{ Form::text('city', '', array('required' => 'required', 'class' => 'form-control inputField')) }}
+				{{ Form::text('city', '', array('class' => 'form-control')) }}
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-2">
-				{{ Form::label('state', 'State/province:') }}
+				{{ Form::label('state', 'State/province:') }} <br>
+				<span class="help-block">Required for those in the US or Canada</span>
 			</div>
 
 			<div class="col-sm-10">
-				{{ Form::text('state', '', array('required' => 'required', 'class' => 'form-control inputField')) }}
+				{{ Form::text('state', '', array('class' => 'form-control')) }}
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-2">
-				{{ Form::label('country', 'Country:') }}
+				{{ Form::label('country', 'Country:') }} <br>
+				<span class="help-block">Required</span>
 			</div>
 
 			<div class="col-sm-10">
-				{{ Form::text('country', '', array('required' => 'required', 'class' => 'form-control inputField')) }}
+				{{ Form::text('country', '', array('class' => 'form-control')) }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-2">
+				{{ Form::label('email', 'Contact email:') }} <br>
+				<span class="help-block">Required. We'll use this to contact you if you forget your password.</span>
+			</div>
+
+			<div class="col-sm-10">
+				{{ Form::email('email', '', array('class' => 'form-control')) }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-2">
+				{{ Form::label('password', 'Password:') }}
+				<span class="help-block">Required. Please make this secure so that your students cannot guess what it is.</span>
+			</div>
+
+			<div class="col-sm-10">
+				{{ Form::password('password', array('class' => 'form-control')) }}
 			</div>
 		</div>
 

@@ -63,7 +63,7 @@
 
 		<div class="form-group">
 			<div class="col-sm-2">
-				{{ Form::label('passcode', 'School passcode:') }}
+				{{ Form::label('passcode', 'School password:') }}
 			</div>
 
 			<div class="col-sm-10">

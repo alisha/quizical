@@ -38,6 +38,16 @@
 			</div>
 		@endif
 
+		{{-- If there are any errors with the input, give the user a warning --}}
+		@if (count($errors) != 0)
+			@foreach($errors->all() as $message)
+				<div class="alert alert-danger alert-dismissable" role="alert">
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				{{ $message }} <br>
+			</div>		
+			@endforeach
+		@endif
+
 		@yield('content')
 	</body>
 

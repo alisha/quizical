@@ -6,7 +6,6 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"barryvdh/laravel-debugbar": "1.x",
-		"hackzilla/password-generator": "~0.1",
 		"serhioromano/bootstrap-calendar": "dev-master"
 	},
 	"autoload": {
