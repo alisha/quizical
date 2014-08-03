@@ -128,8 +128,7 @@ class AssessmentController extends BaseController {
 	public function update($id) {
 		$assessment = Assessment::findOrFail(Input::get('id'));
 		App::make('AssessmentController')->saveInput($assessment);
-		$path = '/courses/'.$assessment->course_id;
-		return Redirect::to($path)->with('alert_class', 'alert-success')->with('flash_message', 'Your assessment has been successfully updated.');
+		return Redirect::to('/assessments/'.$assessment->id)->with('alert_class', 'alert-success')->with('flash_message', 'Your assessment has been successfully updated.');
 	}
 
 	/**

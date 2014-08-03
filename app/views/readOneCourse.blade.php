@@ -21,41 +21,41 @@ Quizical | {{ $course->name }}
 	<p><b>Number of juniors:</b> {{ $course->number_of_juniors }}</p>
 	<p><b>Number of seniors:</b> {{ $course->number_of_seniors }}</p>
 
-	<div class="col-md-1 crudButtons">
-		<div class="col-md-6">
-			{{-- Edit button --}}
-			{{ Form::open(array('route' => array('courses.edit', $course->id), 'method' => 'get')) }}
-				<button class="btn btn-warning btn-sm" href="/courses/{{$course->id}}/edit">Edit</button>
-			{{ Form::close() }}
-		</div>
+	@if ($course->user_id == Auth::user()->id)
+		<div class="col-md-1 crudButtons">
+			<div class="col-md-6">
+				{{-- Edit button --}}
+				{{ Form::open(array('route' => array('courses.edit', $course->id), 'method' => 'get')) }}
+					<button class="btn btn-warning btn-sm" href="/courses/{{$course->id}}/edit">Edit</button>
+				{{ Form::close() }}
+			</div>
 
-		<div class="col-md-6">
-			{{-- Delete button --}}
-			{{ Form::open(array('route' => array('courses.destroy', $course->id), 'method' => 'delete')) }}
-				<button type="submit" class="btn btn-danger btn-sm" href="{{ URL::route('courses.destroy', $course->id) }}">Delete</button>
-			{{ Form::close() }}
+			<div class="col-md-6">
+				{{-- Delete button --}}
+				{{ Form::open(array('route' => array('courses.destroy', $course->id), 'method' => 'delete')) }}
+					<button type="submit" class="btn btn-danger btn-sm" href="{{ URL::route('courses.destroy', $course->id) }}">Delete</button>
+				{{ Form::close() }}
+			</div>
 		</div>
-	</div>
+	@endif
 
-	<br>
+	<br><br>
 
 	<h2>Assessments</h2>
 	@if (count(Assessment::where('course_id', '=', $course->id)->get()) == 0)
 		<p>This course doesn't have any assessments.</p>
-
-		@if ($course->user_id == Auth::user()->id)
-			<p>Would you like to <a href="/assessments/create">add one?</a></p>
-		@endif
 	@else
 		<ul>
 			@foreach (Assessment::where('course_id', '=', $course->id)->get() as $assessment)
 				<li><a href="/assessments/{{ $assessment->id }}">{{ $assessment->name }}</a> on {{ date('F j, Y', strtotime($assessment->date)) }}</li>
 			@endforeach
-		</ul>
+		</ul>	
+	@endif
 
+	@if ($course->user_id == Auth::user()->id)
 		{{-- Add button --}}
 		{{ Form::open(array('route' => array('assessments.create'), 'method' => 'get')) }}
-			<button type="submit" class="btn btn-primary btn-sm" href="{{ URL::route('assessments.create') }}">Add another</button>
+			<button type="submit" class="btn btn-primary btn-sm" href="{{ URL::route('assessments.create') }}">Add an assessment</button>
 		{{ Form::close() }}
 	@endif
 

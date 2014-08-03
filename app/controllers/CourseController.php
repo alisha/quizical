@@ -42,7 +42,7 @@ class CourseController extends BaseController {
 	 */
 	public function index() {
 		$courses = Course::where('user_id', '=', Auth::user()->id)->get()->sortBy('block');
-		return View::make('readCourses')->with('courses', $courses);
+		return View::make('readCourses')->with('courses', $courses)->with('user', Auth::user());
 	}
 
 

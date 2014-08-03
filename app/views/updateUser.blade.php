@@ -1,19 +1,14 @@
 @extends('_master')
 
 @section('title')
-Quizical | Teacher Sign Up
+Quizical | Edit Your Profile
 @stop
 
 @section('content')
 
-	<h1>Teacher Sign Up</h1>
-	<p>This should be completed by the school's teachers only. If you're a principal, or your school has not signed up yet, please go <a href="{{ URL::to('schools/create') }}">here</a>.</p>
-	<p>Contact your school's principal or technology head if you do not know your school's ID or passcode.</p>
-	<p>All fields are required.</p>
+	<h1>Edit Your Profile</h1>
 
-	<br>
-
-	{{ Form::open(array('action' => 'users.store', 'class' => 'form-horizontal')) }}
+	{{ Form::model($user, array('method' => 'put', 'route' => array('users.update', $user->id), 'class' => 'form-horizontal')) }}
 
 		<div class="form-group">
 			<div class="col-sm-2">
@@ -21,7 +16,7 @@ Quizical | Teacher Sign Up
 			</div>
 
 			<div class="col-sm-10">
-				{{ Form::text('first_name', '', array('class' => 'form-control')) }}
+				{{ Form::text('first_name', $user->first_name, array('class' => 'form-control')) }}
 			</div>
 		</div>
 
@@ -31,7 +26,7 @@ Quizical | Teacher Sign Up
 			</div>
 
 			<div class="col-sm-10">
-				{{ Form::text('last_name', '', array('class' => 'form-control')) }}
+				{{ Form::text('last_name', $user->last_name, array('class' => 'form-control')) }}
 			</div>
 		</div>
 
@@ -41,23 +36,35 @@ Quizical | Teacher Sign Up
 			</div>
 
 			<div class="col-sm-10">
-				{{ Form::email('email', '', array('class' => 'form-control')) }}
+				{{ Form::email('email', $user->email, array('class' => 'form-control')) }}
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-2">
-				{{ Form::label('password', 'Password:') }}
+				{{ Form::label('oldPassword', 'Current password:') }} <br>
+				<span class="help help-block">Required if you want to update your password</span>
 			</div>
 
 			<div class="col-sm-10">
-				{{ Form::password('password', array('class' => 'form-control')) }}
+				{{ Form::password('oldPassword', array('class' => 'form-control')) }}
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-2">
-				{{ Form::label('schoolID', 'School ID:') }}
+				{{ Form::label('newPassword', 'New password:') }}
+			</div>
+
+			<div class="col-sm-10">
+				{{ Form::password('newPassword', array('class' => 'form-control')) }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-2">
+				{{ Form::label('schoolID', 'School ID:') }} <br>
+				<span class="help help-block">Enter a new school ID to switch schools.</span>
 			</div>
 
 			<div class="col-sm-10">
@@ -67,7 +74,8 @@ Quizical | Teacher Sign Up
 
 		<div class="form-group">
 			<div class="col-sm-2">
-				{{ Form::label('passcode', 'School password:') }}
+				{{ Form::label('passcode', 'School password:') }} <br>
+				<span class="help help-block">Enter a new school password to switch schools.</span>
 			</div>
 
 			<div class="col-sm-10">
@@ -82,5 +90,4 @@ Quizical | Teacher Sign Up
 		</div>
 		
 	{{ Form::close() }}
-
 @stop

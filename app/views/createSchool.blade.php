@@ -1,5 +1,9 @@
 @extends('_master')
 
+@section('title')
+Quizical | School Sign Up
+@stop
+
 @section('content')
 
 	<h1>School Sign Up</h1>

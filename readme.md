@@ -10,3 +10,4 @@ Thanks to [Ben Zweig](tfzweig.com) for the name.
 
 * [Laravel](laravel.com)
 * [Bootstrap](getbootstrap.com)
+* [Laravel Calendar](https://github.com/makzumi/laravel-calendar) by makzumi

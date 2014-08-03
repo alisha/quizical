@@ -6,36 +6,39 @@
 
 <br>
 
-{{ Form::open(array('url' => '/login', 'class' => 'form-horizontal')) }}
+{{ Form::open(array('url' => '/login', 'class' => 'form-horizontal', 'role' => 'form')) }}
 
 	<div class="form-group">
-		<div class="col-sm-1">
-			{{ Form::label('email', 'Email: ') }}
-		</div>
+		{{ Form::label('email', 'Email: ', array('class' => 'col-sm-2 control-label', 'for' => 'email')) }}
 		<div class="col-sm-10">
-			{{ Form::text('email', '', array('class' => 'form-control inputField')) }}
+			<div class="col-xs-4">
+				{{ Form::text('email', '', array('class' => 'form-control')) }}
+			</div>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<div class="col-sm-1">
-			{{ Form::label('password', 'Password: ') }}
-		</div>
+		{{ Form::label('password', 'Password: ', array('class' => 'col-sm-2 control-label', 'for' => 'password')) }}
 		<div class="col-sm-10">
-			{{ Form::password('password', array('class' => 'form-control inputField')) }}
+			<div class="col-xs-4">	
+				{{ Form::password('password', array('class' => 'form-control')) }}
+			</div>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<div class="col-sm-offset-1 col-sm-10">
-			{{ Form::checkbox('remember_me', '1', array('class' => 'form-control inputField')) }}
-			Remember me
+		<div class="col-sm-offset-2 col-sm-10">
+			<div class="col-xs-4">	
+				{{ Form::checkbox('remember_me', '1', array('class' => 'form-control')) }} Remember me
+			</div>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<div class="col-sm-offset-1 col-sm-10">
-			{{ Form::submit('Log in', array('class' => 'btn btn-primary btn-form')) }}
+		<div class="col-sm-offset-2 col-sm-10">
+			<div class="col-xs-4">	
+				{{ Form::submit('Log in', array('class' => 'btn btn-primary btn-form')) }}
+			</div>
 		</div>
 	</div>
 

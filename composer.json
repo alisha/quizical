@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"barryvdh/laravel-debugbar": "1.x",
-		"serhioromano/bootstrap-calendar": "dev-master"
+		"makzumi/calendar": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

@@ -2,15 +2,16 @@
 
 @section('head')
 	@parent
-	{{--<link rel="stylesheet" href="{{app.path.'vendor/css/calendar.css' }}">--}}
 @stop
 
 @section('content')
 	@if (Auth::check())
-		<p>Want to check out your <a href="courses">courses</a>?</p>
+		<h1>Upcoming Assessments in Your School</h1>
+		<br>
+		{{ Calendar::make()->setDate(Input::get('cdate'))->setEvents($assessments)->setTableClass('table table-calendar month table-striped table-bordered')->generate() }}
 	@else
 		<h1>Welcome to Quizical!</h1>
-		<h2>Quizical lets high school teachers plan their tests and quizzes.</h2>
-		<h2>Get started by <a href="/schools/create">signing up</a> today!</h2>
+		<h3>Quizical lets high school teachers plan their tests and quizzes.</h3>
+		<h3>Get started by <a href="/schools/create">signing up</a> today!</h3>
 	@endif
 @stop
