@@ -92,7 +92,7 @@ class UserController extends BaseController implements RemindableInterface {
 		} 
 		//If the specified user is not the current user
 		else if ($user != Auth::user()) {
-			$courses = Course::where('user_id', '=', $user->id)->get()->sortBy('block');
+			$courses = $courses = Course::where('user_id', '=', $user->id)->orderBy('start_year', 'DESC')->orderBy('block')->get();
 			return View::make('readCourses')->with('courses', $courses)->with('user', $user);
 		} 
 		//The specified user is the current user

@@ -30,6 +30,7 @@ body {
 }
 
 /* Forms */
+
 .col-sm-2 label {
 	margin: 0px;
 }
@@ -46,7 +47,6 @@ label, .help-block {
 /* Calendar View */
 
 table {
-	width: 97% !important;
 	font-weight: bold;
 	text-align: center;
 }

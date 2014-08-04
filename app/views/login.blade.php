@@ -22,6 +22,8 @@
 		<div class="col-sm-10">
 			<div class="col-xs-4">	
 				{{ Form::password('password', array('class' => 'form-control')) }}
+				<br>
+				<a href="/password/remind">Forgot your password?</a>
 			</div>
 		</div>
 	</div>

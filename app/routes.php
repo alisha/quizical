@@ -13,22 +13,49 @@
 
 Route::get('/', function() {
 	$assessments = [];
+	$data = Input::all();
+
+	if (!(Input::has('department'))) {
+		$data['department'] = ['Math', 'Science', 'English', 'History/Social Studies', 'Foreign Languages', 'Guidance and Support', 'Health and Wellness', 'Art', 'Other'];
+	}
+	if (!(Input::has('level'))) {
+		$data['level'] = ['Foundations', 'College Prep', 'Honors', 'Advanced Placement'];
+	}
+	if (!(Input::has('grade'))) {
+		$data['grade'] = ['9', '10', '11', '12'];
+	}
+
+	//var_dump($data);
+	//die();
+
 	if (Auth::check()) {
 		$teachers = User::where('school_id', '=', Auth::user()->school_id)->get();
 		foreach ($teachers as $teacher) {
 			foreach (Course::where('user_id', '=', $teacher->id)->get() as $course) {
-				foreach (Assessment::where('course_id', '=', $course->id)->get() as $assessment) {
-					$value = '<li><a href="/assessments/'.$assessment->id.'">'.$assessment->name.'</a> for <a href="/courses/'.$course->id.'">'.$course->name.'</a> (Block '.$course->block.')</li>';
-					if (array_key_exists(date('Y-m-d', strtotime($assessment->date)), $assessments)) {
-						array_push($assessments[date('Y-m-d', strtotime($assessment->date))], $value);
-					} else {
-						$assessments[date('Y-m-d', strtotime($assessment->date))] = array($value);
+				//Find out what students are in the class
+				$hasFreshmen = ($course->number_of_freshmen != 0) ? true : false;
+				$hasSophomores = ($course->number_of_sophomores != 0) ? true : false;
+				$hasJuniors = ($course->number_of_juniors != 0) ? true : false;
+				$hasSeniors = ($course->number_of_seniors != 0) ? true : false;
+
+				//Make sure the course is the right department and level
+				if (in_array($course->department, $data['department']) && in_array($course->level, $data['level'])) {
+					//Make sure the course has the right students
+					if ((in_array('9', $data['grade']) && $hasFreshmen) || (in_array('10', $data['grade']) && $hasSophomores) || (in_array('11', $data['grade']) && $hasJuniors) || (in_array('12', $data['grade']) && $hasSeniors)) {
+						foreach (Assessment::where('course_id', '=', $course->id)->get() as $assessment) {
+							$value = '<li><a href="/assessments/'.$assessment->id.'">'.$assessment->name.'</a> for <a href="/courses/'.$course->id.'">'.$course->name.'</a> (Block '.$course->block.')</li>';
+							if (array_key_exists(date('Y-m-d', strtotime($assessment->date)), $assessments)) {
+								array_push($assessments[date('Y-m-d', strtotime($assessment->date))], $value);
+							} else {
+								$assessments[date('Y-m-d', strtotime($assessment->date))] = array($value);
+							}
+						}
 					}
 				}
 			}
 		}
 	}
-	return View::make('index')->with('assessments', $assessments);
+	return View::make('index')->with('assessments', $assessments)->with('data', $data);
 });
 
 Route::get('/login',
