@@ -2,11 +2,11 @@
 
 @section('content')
 <h1>Log in</h1>
-<p>Don't have an account? <a href="/user/new">Sign up today!</a></p>
+<p>Don't have an account? <a href="/schools/create">Sign up today!</a></p>
 
 <br>
 
-{{ Form::open(array('url' => '/login', 'class' => 'form-horizontal', 'role' => 'form')) }}
+{{ Form::open(array('url' => 'login', 'class' => 'form-horizontal', 'role' => 'form')) }}
 
 	<div class="form-group">
 		{{ Form::label('email', 'Email: ', array('class' => 'col-sm-2 control-label', 'for' => 'email')) }}

@@ -15,6 +15,7 @@ class SchoolController extends BaseController {
 		$rules = array(
 			'name' => 'required',
 			'city' => 'required',
+			'state' => 'required_if:country,"United States"|required_if:country,"Canada"',
 			'country' => 'required',
 			'email' => 'required|email|unique:schools,email',
 			'password' => 'required'
@@ -42,5 +43,4 @@ class SchoolController extends BaseController {
 		$message = 'Your school has been successfully created. Please write down your school ID ('.$school->id.') and give this, along with your password, to your teachers.';
 		return Redirect::to('/')->with('flash_message', $message)->with('alert_class', 'alert-success');
 	}
-
 }

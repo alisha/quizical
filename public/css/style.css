@@ -1,4 +1,5 @@
 /* General */
+
 body {
 	padding-left: 20px;
 }
@@ -13,6 +14,13 @@ body {
 
 .navbar {
 	width: 97%;
+}
+
+#navbar ul, #navbar li {
+	border: none;
+	box-shadow: none !important;
+	background-color: #f8f8f8 !important;
+	border-color: #e7e7e7 !important;
 }
 
 .secondary-title {
@@ -66,4 +74,16 @@ td li {
 
 thead tr th {
 	text-align: center;
+}
+
+/* Country Selector */
+
+ul {
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+	border: 1px solid #bbb;
+	background-color: white;
+}
+
+li {
+	list-style: none;
 }
