@@ -45,11 +45,13 @@ Quizical | {{ $course->name }}
 	@if (count(Assessment::where('course_id', '=', $course->id)->get()) == 0)
 		<p>This course doesn't have any assessments.</p>
 	@else
-		<ul>
-			@foreach (Assessment::where('course_id', '=', $course->id)->get() as $assessment)
-				<li><a href="/assessments/{{ $assessment->id }}">{{ $assessment->name }}</a> on {{ date('F j, Y', strtotime($assessment->date)) }}</li>
-			@endforeach
-		</ul>	
+		<div id="assessments">
+			<ul>
+				@foreach (Assessment::where('course_id', '=', $course->id)->get() as $assessment)
+					<li><a href="/assessments/{{ $assessment->id }}">{{ $assessment->name }}</a> on {{ date('F j, Y', strtotime($assessment->date)) }}</li>
+				@endforeach
+			</ul>
+		</div>	
 	@endif
 
 	@if ($course->user_id == Auth::user()->id)

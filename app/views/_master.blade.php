@@ -36,6 +36,7 @@
 							@if (Auth::check())
 								<li><a href="/">Calendar</a></li>
 								<li><a href="/courses">Your Courses</a></li>
+								<li><a href="/messages">Messages</a></li>
 								<li><a href="/users/{{Auth::user()->id}}">Your Profile</a></li>
 								<li><a href="/logout">Logout</a></li>
 							@else

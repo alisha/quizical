@@ -37,6 +37,12 @@ body {
 	width: 97%;
 }
 
+#assessments div, #assessments ul, #assessments li {
+	box-shadow: none !important;
+	border: none;
+	list-style-type: disc;
+}
+
 /* Forms */
 
 .col-sm-2 label {
@@ -50,6 +56,11 @@ body {
 label, .help-block {
 	float: right;
 	text-align: right;
+}
+
+label #replyField {
+	text-align: left !important;
+	float: left !important;
 }
 
 /* Calendar View */

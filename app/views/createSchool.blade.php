@@ -11,7 +11,6 @@ Quizical | School Sign Up
 	<script type="text/javascript" src="{{ asset('js/selectToAutocomplete/jquery-ui-autocomplete.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/selectToAutocomplete/jquery.select-to-autocomplete.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/selector.js') }}"></script>
-	<link rel="stylesheet" media="screen" type="text/css" href="{{ asset('css/style.css') }}">
 @stop
 
 @section('content')

@@ -3,7 +3,7 @@
 class Course extends Eloquent {
 
 	public function user() {
-		return $this->belongsTo('Course');
+		return $this->belongsTo('User');
 	}
 
 	public function assessment() {
