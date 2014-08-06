@@ -6,6 +6,7 @@ Quizical | School Sign Up
 
 @section('head')
 	@parent
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/countrySelector.css') }}">
 	<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 	<script type="text/javascript" src="{{ asset('js/selectToAutocomplete/jquery-ui-autocomplete.js') }}"></script>

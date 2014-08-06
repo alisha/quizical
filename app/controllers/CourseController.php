@@ -41,8 +41,10 @@ class CourseController extends BaseController {
 	 * @return Response
 	 */
 	public function index() {
-		$courses = Course::where('user_id', '=', Auth::user()->id)->orderBy('start_year', 'DESC')->orderBy('block')->get();
-		return View::make('readCourses')->with('courses', $courses)->with('user', Auth::user());
+		$courses = Auth::user()->course()->orderBy('start_year', 'DESC')->orderBy('block')->get();
+		return View::make('readCourses')
+			->with('courses', $courses)
+			->with('user', Auth::user());
 	}
 
 
@@ -77,7 +79,9 @@ class CourseController extends BaseController {
 		//If the input is valid, create the course
 		App::make('CourseController')->saveInput($course);
 
-		return Redirect::to('/courses')->with('flash_message', 'Your course has been successfully created.')->with('alert_class', 'alert-success');
+		return Redirect::to('/courses')
+			->with('flash_message', 'Your course has been successfully created.')
+			->with('alert_class', 'alert-success');
 	}
 
 
@@ -91,17 +95,26 @@ class CourseController extends BaseController {
 		$course = Course::where('id', '=', $id)->first();
 		
 		if (!is_object($course)) {
-			return Redirect::to('/courses')->with('flash_message', 'Sorry, that course doesn\'t exist')->with('alert_class', 'alert-danger');
+			return Redirect::to('/courses')
+				->with('flash_message', 'Sorry, that course doesn\'t exist')
+				->with('alert_class', 'alert-danger');
 		}
 
-		$teacher = User::where('id', '=', $course->user_id)->firstOrFail();
-		$school = School::where('id', '=', $teacher->school_id)->firstOrFail();
+		$teacher = $course->user;
+		$school = $teacher->school;
 
 		if ($school->id != Auth::user()->school_id) {
-			return Redirect::to('/courses')->with('flash_message', 'Sorry, you don\'t have permission to view that course')->with('alert_class', 'alert-danger');
+			return Redirect::to('/courses')
+				->with('flash_message', 'Sorry, you don\'t have permission to view that course')
+				->with('alert_class', 'alert-danger');
 		}
 		
-		return View::make('readOneCourse')->with('course', $course);
+		return View::make('readOneCourse')
+			->with(array(
+				'course' => $course,
+				'teacher' => $teacher
+			)
+		);
 	}
 
 
@@ -116,13 +129,18 @@ class CourseController extends BaseController {
 
 		//Make sure the specified course exists
 		if (!isset($course)) {
-			return Redirect::to('/')->with('flash_message', 'Sorry, that course doesn\'t exist')->with('alert_class', 'alert-danger');
+			return Redirect::to('/')
+				->with('flash_message', 'Sorry, that course doesn\'t exist')
+				->with('alert_class', 'alert-danger');
 		}
 		//Make sure the course belongs to the teacher
 		else if ($course->user_id != Auth::user()->id) {
-			return Redirect::to('/')->with('flash_message', 'You do not have permission to edit this course.')->with('alert_class', 'alert-danger');
+			return Redirect::to('/')
+				->with('flash_message', 'You do not have permission to edit this course.')
+				->with('alert_class', 'alert-danger');
 		} else {
-			return View::make('updateCourse')->with('course', $course);
+			return View::make('updateCourse')
+				->with('course', $course);
 		}
 	}
 
@@ -148,7 +166,9 @@ class CourseController extends BaseController {
 		//If the input is valid, update the course
 		App::make('CourseController')->saveInput($course);
 		$path = '/courses/'.$course->id;
-		return Redirect::to($path)->with('flash_message', 'Your course has been successfully updated.')->with('alert_class', 'alert-success');
+		return Redirect::to($path)
+			->with('flash_message', 'Your course has been successfully updated.')
+			->with('alert_class', 'alert-success');
 	}
 
 
@@ -162,7 +182,10 @@ class CourseController extends BaseController {
 		$course = Course::findOrFail($id);
 		Course::destroy($course->id);
 		$allCourses = Course::where('user_id', '=', Auth::user()->id)->get();
-		return Redirect::to('courses/')->with(array('flash_message' => 'Your course has been deleted.', 'courses' => $allCourses));
+		return Redirect::to('courses/')
+			->with(array(
+				'flash_message' => 'Your course has been deleted.',
+				'courses' => $allCourses));
 	}
 
 }

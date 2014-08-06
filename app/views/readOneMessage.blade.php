@@ -7,9 +7,14 @@ Quizical | Message: {{ $message->subject }}
 @section('content')
 
 	<h1>Message: {{ $message->subject }}</h1>
-	<h3>With: 
-		@for ($index = 0; $index < count($users); $index++) {{ $users[$index]->first_name }} {{ $users[$index]->last_name }}@if (count($users) == 2 && $index == 1) and @endif @if (count($users) > 2), @if ($index == count($users) - 2)and @endif @endif @endfor
-	</h3>
+	<h4><b>With:</b></h4>
+		<ul>
+			@foreach ($users as $user)
+				@if ($user->id != Auth::user()->id)
+					<li>{{ $user->first_name }} {{ $user->last_name }}</li>
+				@endif
+			@endforeach
+		</ul>
 
 	<br>
 

@@ -9,7 +9,7 @@ Quizical | {{ $course->name }}
 	<h1>{{ $course->name }}</h1>
 
 	@if ($course->user_id != Auth::user()->id)
-		<p><b>Teacher:</b> {{ User::where('id', '=', $course->user_id)->firstOrFail()->first_name}} {{ User::where('id', '=', $course->user_id)->firstOrFail()->last_name }}</p>
+		<p><b>Teacher:</b> {{ $teacher->first_name }} {{ $teacher->last_name }}</p>
 	@endif
 
 	<p><b>Block:</b> {{ $course->block }}</p>
@@ -21,7 +21,7 @@ Quizical | {{ $course->name }}
 	<p><b>Number of juniors:</b> {{ $course->number_of_juniors }}</p>
 	<p><b>Number of seniors:</b> {{ $course->number_of_seniors }}</p>
 
-	@if ($course->user_id == Auth::user()->id)
+	@if ($teacher->id == Auth::user()->id)
 		<div class="col-md-1 crudButtons">
 			<div class="col-md-6">
 				{{-- Edit button --}}
@@ -54,7 +54,7 @@ Quizical | {{ $course->name }}
 		</div>	
 	@endif
 
-	@if ($course->user_id == Auth::user()->id)
+	@if ($teacher->id == Auth::user()->id)
 		{{-- Add button --}}
 		{{ Form::open(array('route' => array('assessments.create'), 'method' => 'get')) }}
 			<button type="submit" class="btn btn-primary btn-sm" href="{{ URL::route('assessments.create') }}">Add an assessment</button>

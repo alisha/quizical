@@ -10,12 +10,17 @@ Quizical | Messages
 		<p>You don't have any messages!</p>
 	@else
 		@foreach ($messages as $message)
-			<p><a href="/messages/{{$message->id}}"><b>{{ $message->subject }}</b></a><br>With 
+			<p><a href="/messages/{{$message->id}}"><b>{{ $message->subject }}</b></a><br>With:
 				{{-- Display users in the message --}}
-				@for ($index = 0; $index < count($message->user->all()); $index++)
-					
-				@endfor
+				<ul class="userList">
+				@foreach ($message->user->all() as $user)
+					@if ($user->id != Auth::user()->id)
+						<li>{{ $user->first_name }} {{ $user->last_name }}</li>
+					@endif
+				@endforeach
+				</ul>
 			</p>
+			<br>
 		@endforeach
 	@endif
 

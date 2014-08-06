@@ -90,17 +90,10 @@ class MessageController extends \BaseController {
 				->with('alert_class', 'alert-danger');
 		}
 
-		$usersNotThis = [];
-		foreach ($users as $user) {
-			if ($user->id != Auth::user()->id) {
-				array_push($usersNotThis, $user);
-			}
-		}
-
 		$replies = Reply::where('message_id', '=', $message->id)->get();
 		return View::make('readOneMessage')->with(array(
 			'message' => $message,
-			'users' => $usersNotThis,
+			'users' => $users,
 			'replies' => $replies
 		));
 	}
