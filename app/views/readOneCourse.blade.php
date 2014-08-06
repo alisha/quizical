@@ -9,7 +9,7 @@ Quizical | {{ $course->name }}
 	<h1>{{ $course->name }}</h1>
 
 	@if ($course->user_id != Auth::user()->id)
-		<p><b>Teacher:</b> {{ $teacher->first_name }} {{ $teacher->last_name }}</p>
+		<p><b>Teacher:</b> <a href="/users/{{$teacher->id}}">{{ $teacher->first_name }} {{ $teacher->last_name }}</a></p>
 	@endif
 
 	<p><b>Block:</b> {{ $course->block }}</p>
