@@ -6,7 +6,7 @@ Note: this is not complete, as there are some features that need to be completed
 
 ## Test Credentials
 
-To test out quizical, use the followng credentials:
+To test out quizical, use the following credentials:
 
 * School ID: 1
 * School password: test
