@@ -13,16 +13,16 @@ Quizical | Your Courses
 	@endif
 
 	{{-- List courses --}}
+	
+	@if(count($courses) == 0)
+		@if ($user->id == Auth::user()->id)
+			<p>You don't have any courses!</p>
+		@else
+			<p>This user doesn't have any courses.</p>
+		@endif
+	@endif
 
 	<div class="row">
-		@if(count($courses) == 0)
-			@if ($user->id == Auth::user()->id)
-				<p>You don't have any courses!</p>
-			@else
-				<p>This user doesn't have any courses.</p>
-			@endif
-		@endif
-
 		@foreach($courses as $course)
 			<div class="col-md-12">
 				<div class="panel panel-default">
