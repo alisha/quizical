@@ -26,6 +26,7 @@ Thanks to [Ben Zweig](tfzweig.com) for the name.
 * [Laravel Calendar](https://github.com/makzumi/laravel-calendar) by makzumi
 	* The `getOldGET()` function was modified slightly for calendar filters
 * [Select To Autocomplete: Redesigned Country Selector](http://baymard.com/labs/country-selector)
+* [CSS Sticky Footer tutorial](http://ryanfait.com/sticky-footer/) by Ryan Fait
 
 ## To Do
 
