@@ -3,12 +3,34 @@
 class MessageController extends \BaseController {
 
 	/**
+	 *Get the users associated with an array, excluding the logged in user
+	 *
+	 * @param  int  $id
+	 * @return array
+	 *
+	 */
+	public function getOtherUsers($id) {
+		$allUsers = Message::findOrfail($id)->user->all();
+		$returnUsers = [];
+
+		foreach ($allUsers as $user) {
+			if ($user->id != Auth::user()->id) {
+				array_push($returnUsers, $user);
+			}
+		}
+
+		return $returnUsers;
+	}
+
+
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index() {
 		$messages = Auth::user()->message->all();
+
 		return View::make('readMessages')->with('messages', $messages);
 	}
 
@@ -73,7 +95,14 @@ class MessageController extends \BaseController {
 	 * @return Response
 	 */
 	public function show($id) {
-		$message = Message::findOrfail($id);
+		$message = Message::find($id);
+
+		if (!(isset($message))) {
+			return Redirect::to('/messages')
+				->with('flash_message', 'That message doesn\'t exist!')
+				->with('alert_class', 'alert-danger');
+		}
+
 		$users = $message->user->all();
 
 		//If the user isn't part of the conversation, don't let them view it
@@ -93,7 +122,7 @@ class MessageController extends \BaseController {
 		$replies = Reply::where('message_id', '=', $message->id)->get();
 		return View::make('readOneMessage')->with(array(
 			'message' => $message,
-			'users' => $users,
+			'users' => $message->getOtherUsers(),
 			'replies' => $replies
 		));
 	}

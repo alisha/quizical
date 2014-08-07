@@ -12,4 +12,17 @@ class Message extends Eloquent {
 		return $this->hasMany('Reply');
 	}
 
+	public function getOtherUsers() {
+		$allUsers = $this->user->all();
+		$returnUsers = [];
+
+		foreach ($allUsers as $user) {
+			if ($user->id != Auth::user()->id) {
+				array_push($returnUsers, $user);
+			}
+		}
+
+		return $returnUsers;
+	}
+
 }

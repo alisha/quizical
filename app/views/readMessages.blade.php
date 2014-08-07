@@ -12,13 +12,9 @@ Quizical | Messages
 		@foreach ($messages as $message)
 			<p><a href="/messages/{{$message->id}}"><b>{{ $message->subject }}</b></a><br>With:
 				{{-- Display users in the message --}}
-				<ul class="userList">
-				@foreach ($message->user->all() as $user)
-					@if ($user->id != Auth::user()->id)
-						<li>{{ $user->first_name }} {{ $user->last_name }}</li>
-					@endif
-				@endforeach
-				</ul>
+				@for ($index = 0; $index < count($message->getOtherUsers()); $index++)
+					{{ $message->getOtherUsers()[$index]->first_name }} {{ $message->getOtherUsers()[$index]->last_name }}@if($index != count($message->getOtherUsers()) - 1)@if ($index == count($message->getOtherUsers()) - 2)@if (count($message->getOtherUsers()) > 2), and @else and @endif @else, @endif @endif
+				@endfor
 			</p>
 			<br>
 		@endforeach
