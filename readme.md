@@ -30,8 +30,8 @@ Thanks to [Ben Zweig](tfzweig.com) for the name.
 ## To Do
 
 * Allow users to reset their passwords if they forgot them
-* Notifications for messages
 * Let schools login to view the calendar and update their info
+* Archive messages
 * Suggest dates that don't have many assessments when a teacher is creating a new one
 * For schools with block rotations, show dates that a block meets on when a teacher is creating an assessment
 * Feedback form

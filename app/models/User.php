@@ -32,11 +32,20 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function message() {
-		return $this->belongsToMany('Message');
+		return $this->belongsToMany('Message')
+			->orderBy('last_reply', 'desc');
 	}
 
 	public function reply() {
 		return $this->hasMany('Reply');
+	}
+
+	public function notification() {
+		return $this->belongsToMany('Reply', 'notifications');
+	}
+
+	public function numberOfUnreadMessages() {
+		return count(Notification::where('user_id', '=', $this->id)->where('has_read', '=', '0')->get());
 	}
 
 }

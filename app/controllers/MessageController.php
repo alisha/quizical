@@ -30,7 +30,7 @@ class MessageController extends \BaseController {
 	 */
 	public function index() {
 		$messages = Auth::user()->message->all();
-
+		
 		return View::make('readMessages')->with('messages', $messages);
 	}
 
@@ -63,12 +63,13 @@ class MessageController extends \BaseController {
 			$rules);
 
 		if ($validator->fails()) {
-			return Redirect::to('/courses/create')
+			return Redirect::to('/messages/create')
 				->withInput()
 				->withErrors($validator);
 		}
 
 		$message->subject = Input::get('subject');
+		$message->last_reply = date("Y-m-d H:i:s");
 		$message->save();
 
 		$message->user()->attach(Auth::user()->id);
@@ -81,6 +82,16 @@ class MessageController extends \BaseController {
 		$reply->message_id = $message->id;
 		$reply->user_id = Auth::user()->id;
 		$reply->save();
+
+		//Set up notifications for this message
+		foreach ($message->user->all() as $user) {
+			$reply->notification()->save($user);
+		}
+		$notification = Notification::where('user_id', '=', Auth::user()->id)
+			->where('reply_id', '=', $reply->id)
+			->firstOrFail();
+		$notification->has_read = 1;
+		$notification->save();
 
 		return Redirect::to('/messages')
 			->with('flash_message', 'Your message has been sent')
@@ -120,6 +131,15 @@ class MessageController extends \BaseController {
 		}
 
 		$replies = Reply::where('message_id', '=', $message->id)->get();
+
+		foreach ($replies as $reply) {
+			$notification = Notification::where('user_id', '=', Auth::user()->id)
+				->where('reply_id', '=', $reply->id)
+				->firstOrFail();
+			$notification->has_read = 1;
+			$notification->save();
+		}
+
 		return View::make('readOneMessage')->with(array(
 			'message' => $message,
 			'users' => $message->getOtherUsers(),
@@ -135,13 +155,25 @@ class MessageController extends \BaseController {
 	*/
 	public function reply($id) {
 		$message = Message::findOrfail($id);
-		$user = Auth::user();
+		$message->last_reply = date("Y-m-d H:i:s");
+		$message->save();
 
 		$reply = new Reply;
 		$reply->text = Input::get('text');
 		$reply->message_id = $message->id;
-		$reply->user_id = $user->id;
+		$reply->user_id = Auth::user()->id;
 		$reply->save();
+
+		//Set up notifications for this message
+		foreach ($message->user()->get() as $user) {
+			$reply->notification()->save($user);
+		}
+
+		$notification = Notification::where('user_id', '=', Auth::user()->id)
+			->where('reply_id', '=', $reply->id)
+			->firstOrFail();
+		$notification->has_read = 1;
+		$notification->save();		
 
 		return Redirect::to('/messages/'.$id.'#'.$reply->id)
 			->with('flash_message', 'Your message has been sent!')

@@ -1,5 +1,10 @@
 <?php
 
+//Debug Bar
+if(Config::get('app.debug_bar') == false) {
+	Debugbar::disable();
+}
+
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader

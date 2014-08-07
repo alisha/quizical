@@ -15,6 +15,7 @@ class CreateMessagesTable extends Migration {
 		Schema::create('messages', function($table) {
 			$table->increments('id');
 			$table->string('subject');
+			$table->dateTime('last_reply');
 			$table->timestamps();
 		});
 	}

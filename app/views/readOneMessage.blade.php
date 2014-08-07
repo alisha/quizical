@@ -16,7 +16,8 @@ Quizical | Message: {{ $message->subject }}
 	<br>
 
 	@foreach ($replies as $reply)
-		<p><a name="{{$reply->id}}" style="color:black;text-decoration:none;"><b>{{ User::where('id', '=', $reply->user_id)->firstOrFail()->first_name }} {{ User::where('id', '=', $reply->user_id)->firstOrFail()->last_name }}</b>: {{ $reply->text }}</a></p>
+		<p><a name="{{$reply->id}}" style="color:black;text-decoration:none;"><b>{{ $reply->user->first_name }} {{ $reply->user->last_name }}</b>:
+		<br>{{ $reply->text }}</a></p>
 	@endforeach
 
 	<br>
