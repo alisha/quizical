@@ -67,6 +67,10 @@ html, body {
 
 /* Forms */
 
+form {
+	width: 97%;
+}
+
 .col-sm-2 label {
 	margin: 0px;
 }
@@ -83,6 +87,10 @@ label, .help-block {
 label #replyField {
 	text-align: left !important;
 	float: left !important;
+}
+
+input[type=date], input[type=text], input[type=email], input[type=password], input[type=number] {
+	width: 25%;
 }
 
 /* Calendar View */
