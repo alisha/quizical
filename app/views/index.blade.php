@@ -15,14 +15,20 @@
 			<div class="col-sm-3">
 				<h2>Filter</h2>
 				{{ Form::open(array('url' => '/', 'method' => 'get')) }}
-					<div class="col-sm-3">
+					<div class="col-sm-6">
 						<h4>Grades</h4>
-						{{ Form::checkbox('grade[]', '9', (in_array('9', $data['grade']) ? true : false)) }} 9th grade <br>
-						{{ Form::checkbox('grade[]', '10', (in_array('10', $data['grade']) ? true : false)) }} 10th grade <br>
-						{{ Form::checkbox('grade[]', '11', (in_array('11', $data['grade']) ? true : false)) }} 11th grade <br>
-						{{ Form::checkbox('grade[]', '12', (in_array('12', $data['grade']) ? true : false)) }} 12th grade <br>
+						{{ Form::checkbox('grade[]', '9', (in_array('9', $data['grade']) ? true : false)) }} 9 <br>
+						{{ Form::checkbox('grade[]', '10', (in_array('10', $data['grade']) ? true : false)) }} 10 <br>
+						{{ Form::checkbox('grade[]', '11', (in_array('11', $data['grade']) ? true : false)) }} 11 <br>
+						{{ Form::checkbox('grade[]', '12', (in_array('12', $data['grade']) ? true : false)) }} 12 <br><br>
+						<h4>Level</h4>
+						{{ Form::checkbox('level[]', 'Foundations', (in_array('Foundations', $data['level']) ? true : false)) }} Foundations <br>
+						{{ Form::checkbox('level[]', 'College Prep', (in_array('College Prep', $data['level']) ? true : false)) }} College Prep <br>
+						{{ Form::checkbox('level[]', 'Honors', (in_array('Honors', $data['level']) ? true : false)) }} Honors <br>
+						{{ Form::checkbox('level[]', 'Advanced Placement', (in_array('Advanced Placement', $data['level']) ? true : false)) }} Advanced Placement <br><br>
+						{{ Form::submit('Filter', array('class' => 'btn btn-primary')) }}
 					</div>
-					<div class="col-sm-5">
+					<div class="col-sm-6">
 						<h4>Departments</h4>
 						{{ Form::checkbox('department[]', 'Math', (in_array('Math', $data['department']) ? true : false)) }} Math <br>
 						{{ Form::checkbox('department[]', 'Science', (in_array('Science', $data['department']) ? true : false)) }} Science <br>
@@ -34,23 +40,12 @@
 						{{ Form::checkbox('department[]', 'Art', (in_array('Art', $data['department']) ? true : false)) }} Art <br>
 						{{ Form::checkbox('department[]', 'Other', (in_array('Other', $data['department']) ? true : false)) }} Other <br>
 					</div>
-					<div class="col-sm-3">
-						<h4>Level</h4>
-						{{ Form::checkbox('level[]', 'Foundations', (in_array('Foundations', $data['level']) ? true : false)) }} Foundations <br>
-						{{ Form::checkbox('level[]', 'College Prep', (in_array('College Prep', $data['level']) ? true : false)) }} College Prep <br>
-						{{ Form::checkbox('level[]', 'Honors', (in_array('Honors', $data['level']) ? true : false)) }} Honors <br>
-						{{ Form::checkbox('level[]', 'Advanced Placement', (in_array('Advanced Placement', $data['level']) ? true : false)) }} Advanced Placement <br>
-						<br>
-					</div>
-					<div class="col-sm-1">
-						{{ Form::submit('Filter', array('class' => 'btn btn-primary')) }}
-					</div>
 				{{ Form::close() }}
 			</div>
 		</div>
 	@else
-		<h1>Welcome to Quizical!</h1>
-		<h3>Quizical lets high school teachers plan their tests and quizzes.</h3>
+		<h1>Quizical</h1>
+		<h3>The first web app for high school teachers to plan tests and quizzes</h3>
 		<h3>Get started by <a href="/schools/create">signing up</a> today!</h3>
 		<br>
 		<p>Schools, <a href="#">forgot your password?</a></p>
