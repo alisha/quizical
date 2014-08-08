@@ -1,3 +1,5 @@
 # Contribution Guidelines
 
-Please submit all issues and pull requests to the [laravel/framework](http://github.com/laravel/framework) repository!
+For feedback, please open an issue on the GitHub page for Quizical, or send an email to [feedback@quizical.io](mailto:feedback@quizical.io).
+
+To contribute code, please submit a pull request. You'll be thanked in the README :)
