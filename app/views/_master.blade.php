@@ -29,7 +29,7 @@
 					        <span class="icon-bar"></span>
 					        <span class="icon-bar"></span>
 					      </button>
-					      <span class="navbar-brand">Quizical</span>
+					      <span class="navbar-brand"><img src="{{ asset('images/logo.png') }}" id="logo"></span>
 						</div>
 
 						<div class="collapse navbar-collapse" id="navbar-collapse">

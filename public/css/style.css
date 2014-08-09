@@ -8,6 +8,11 @@ html, body {
 	height: 100%;
 }
 
+#logo {
+	height: 40px;
+	margin-top: -11px;
+}
+
 .crudButtons, .crudButtons div {
 	padding: 0px;
 }
@@ -89,7 +94,7 @@ label #replyField {
 	float: left !important;
 }
 
-input[type=date], input[type=text], input[type=email], input[type=password], input[type=number] {
+input[type=date], input[type=text], input[type=email], input[type=password], input[type=number], input[role=textbox], select {
 	width: 25%;
 }
 

@@ -44,8 +44,8 @@
 			</div>
 		</div>
 	@else
-		<h1>Quizical</h1>
-		<h3>The first web app for high school teachers to plan tests and quizzes</h3>
+		<h1>The first web app for high school teachers to plan tests and quizzes</h1>
+		<h2>Make it easier to connect with colleagues about assessments</h2>
 		<h3>Get started by <a href="/schools/create">signing up</a> today!</h3>
 		<br>
 		<p>Schools, <a href="#">forgot your password?</a></p>

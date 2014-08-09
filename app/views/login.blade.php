@@ -11,36 +11,28 @@
 	<div class="form-group">
 		{{ Form::label('email', 'Email: ', array('class' => 'col-sm-2 control-label', 'for' => 'email')) }}
 		<div class="col-sm-10">
-			<div class="col-xs-4">
-				{{ Form::text('email', '', array('class' => 'form-control')) }}
-			</div>
+			{{ Form::text('email', '', array('class' => 'form-control')) }}
 		</div>
 	</div>
 
 	<div class="form-group">
 		{{ Form::label('password', 'Password: ', array('class' => 'col-sm-2 control-label', 'for' => 'password')) }}
 		<div class="col-sm-10">
-			<div class="col-xs-4">	
-				{{ Form::password('password', array('class' => 'form-control')) }}
-				<br>
-				<a href="/password/remind">Forgot your password?</a>
-			</div>
+			{{ Form::password('password', array('class' => 'form-control')) }}
+			<br>
+			<a href="/password/remind">Forgot your password?</a>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<div class="col-xs-4">	
-				{{ Form::checkbox('remember_me', '1', array('class' => 'form-control')) }} Remember me
-			</div>
+			{{ Form::checkbox('remember_me', '1', array('class' => 'form-control')) }} Remember me
 		</div>
 	</div>
 
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<div class="col-xs-4">	
-				{{ Form::submit('Log in', array('class' => 'btn btn-primary btn-form')) }}
-			</div>
+			{{ Form::submit('Log in', array('class' => 'btn btn-primary btn-form')) }}
 		</div>
 	</div>
 
