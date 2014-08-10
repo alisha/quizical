@@ -105,7 +105,7 @@
 								Twitter: <br><a href="https://twitter.com/quizical_app">@quizical_app</a>
 							</div>
 							<div class="col-sm-4">
-								Blog: <br><a href="https://blog.quizical.io">blog.quizical.io</a>
+								Blog: <br><a href="http://blog.quizical.io">blog.quizical.io</a>
 							</div>
 							<div class="col-sm-4">
 								GitHub: <br><a href="https://github.com/alisha/quizical">github.com/alisha/quizical</a>

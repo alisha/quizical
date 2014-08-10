@@ -43,7 +43,8 @@
 		<h1>The first web app for high school teachers to plan tests and quizzes</h1>
 		<h2>Make it easier to connect with colleagues about assessments</h2>
 		<h3>Get started by <a href="/schools/create">signing up</a> today!</h3>
-		<br>
+		<iframe width="560" height="315" src="//www.youtube.com/embed/dO-_8OfCqHo" frameborder="0" allowfullscreen></iframe>
+		<br><br>
 		<p>Schools, <a href="#">forgot your password?</a></p>
 	@endif
 @stop
