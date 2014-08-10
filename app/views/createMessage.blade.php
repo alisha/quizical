@@ -1,7 +1,7 @@
 @extends('_master')
 
 @section('title')
-Quizical | New Message
+@parent | New Message
 @stop
 
 @section('content')

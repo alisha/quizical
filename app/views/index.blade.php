@@ -1,9 +1,5 @@
 @extends('_master')
 
-@section('head')
-	@parent
-@stop
-
 @section('content')
 	@if (Auth::check())
 		<h1>Upcoming Assessments in Your School</h1>

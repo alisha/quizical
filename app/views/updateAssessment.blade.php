@@ -1,7 +1,7 @@
 @extends('_master')
 
 @section('titile')
-Quizical | Edit {{ $assessment->name }}
+@parent | Edit {{ $assessment->name }}
 @stop
 
 @section('content')

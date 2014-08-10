@@ -1,7 +1,7 @@
 @extends('_master')
 
 @section('title')
-Quizical | Create an Assessment
+@parent | Create an Assessment
 @stop
 
 @section('content')

@@ -1,5 +1,9 @@
 @extends('_master')
 
+@section('title')
+@parent | Log In
+@stop
+
 @section('content')
 <h1>Log in</h1>
 <p>Don't have an account? <a href="/schools/create">Sign up today!</a></p>

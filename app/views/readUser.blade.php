@@ -1,7 +1,7 @@
 @extends('_master')
 
 @section('title')
-Quizical | Your Profile
+@parent | Your Profile
 @stop
 
 @section('content')

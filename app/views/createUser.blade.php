@@ -1,7 +1,7 @@
 @extends('_master')
 
 @section('title')
-Quizical | Teacher Sign Up
+@parent | Teacher Sign Up
 @stop
 
 @section('content')

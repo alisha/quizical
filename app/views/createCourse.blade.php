@@ -1,7 +1,7 @@
 @extends('_master')
 
 @section('title')
-Quizical | Create a Course
+@parent | Create a Course
 @stop
 
 @section('content')

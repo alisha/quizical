@@ -5,7 +5,7 @@
 		@section('head')
 			<title>
 				@section('title')
-					Quizical
+					QuiziCal
 				@show
 			</title>
 
